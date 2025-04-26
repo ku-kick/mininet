@@ -29,6 +29,8 @@
 #define VERSION "(devel)"
 #endif
 
+#define debug(fmt, ...) printf("[debug] " fmt, __VA_ARGS__)
+
 void usage(char *name)
 {
     printf("Execution utility for Mininet\n\n"
@@ -110,6 +112,7 @@ int main(int argc, char *argv[])
                 close(fd);
             break;
         case 'd':
+            debug("Forking (d)\n");
             /* detach from tty */
             if (getpgrp() == getpid()) {
                 switch(fork()) {
@@ -126,6 +129,7 @@ int main(int argc, char *argv[])
             break;
         case 'n':
             /* run in network and mount namespaces */
+            debug("Unshare (n)");
             if (unshare(CLONE_NEWNET|CLONE_NEWNS) == -1) {
                 perror("unshare");
                 return 1;
@@ -152,6 +156,7 @@ int main(int argc, char *argv[])
             fflush(stdout);
             break;
         case 'a':
+            debug("Attaching to network, and mount namespaces (a)");
             /* Attach to pid's network namespace and mount namespace */
             pid = atoi(optarg);
             sprintf(path, "/proc/%d/ns/net", pid);
@@ -182,6 +187,7 @@ int main(int argc, char *argv[])
             }
             break;
         case 'g':
+            debug("Attaching to cgroup (g)");
             /* Attach to cgroup */
             cgroup(optarg);
             break;
