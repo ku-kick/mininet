@@ -106,7 +106,7 @@ function version_ge {
 PYTHON=${PYTHON:-python}
 PRINTVERSION='import sys; print(sys.version_info)'
 PYTHON_VERSION=unknown
-for python in $PYTHON python2 python3; do
+for python in $PYTHON python3 python2 ; do
     if $python -c "$PRINTVERSION" |& grep 'major=2'; then
         PYTHON=$python; PYTHON_VERSION=2; PYPKG=python
         break
