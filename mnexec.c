@@ -29,7 +29,7 @@
 #define VERSION "(devel)"
 #endif
 
-#define debug(fmt, ...) printf("[debug] " fmt, __VA_ARGS__)
+#define debug(...) printf("[debug] " __VA_ARGS__ )
 
 void usage(char *name)
 {
